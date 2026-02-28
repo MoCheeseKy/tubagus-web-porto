@@ -343,23 +343,19 @@ export default function Home() {
                     transition={{ delay: idx * 0.1 }}
                     className='group relative border border-zinc-800 bg-black aspect-[4/3] overflow-hidden cursor-none'
                   >
-                    <div
-                      className={`absolute inset-0 bg-orange-500/20 transition-opacity z-20 mix-blend-color-dodge pointer-events-none opacity-0 md:group-hover:opacity-100 ${isActive ? 'opacity-100' : ''}`}
-                    ></div>
+                    <div className='absolute inset-0 bg-orange-500/20 transition-opacity z-20 mix-blend-color-dodge pointer-events-none opacity-0 md:group-hover:opacity-100'></div>
 
                     <div className='absolute inset-0 bg-zinc-900 flex items-center justify-center z-0'>
                       <img
                         src={project.image}
                         alt={project.title}
-                        className={`w-full h-full object-cover transition-all duration-700 opacity-30 grayscale-0 md:grayscale md:group-hover:grayscale-0 md:group-hover:opacity-10 ${isActive ? 'opacity-10' : ''}`}
+                        className='w-full h-full object-cover transition-all duration-700 opacity-80 grayscale-0 md:grayscale md:opacity-30 md:group-hover:grayscale-0 md:group-hover:opacity-10'
                       />
-                      <div
-                        className={`absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10 transition-opacity duration-500 md:group-hover:opacity-0 ${isActive ? 'opacity-0' : ''}`}
-                      ></div>
+                      <div className='absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10 transition-opacity duration-500 md:group-hover:opacity-0'></div>
                     </div>
 
                     <div
-                      className={`absolute bottom-8 left-8 z-20 transition-opacity duration-500 md:group-hover:opacity-0 flex flex-col items-start ${isActive ? 'opacity-0 pointer-events-none' : ''}`}
+                      className={`absolute bottom-8 left-8 z-20 transition-opacity duration-500 md:group-hover:opacity-0 flex flex-col items-start ${isActive ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
                     >
                       <p className='text-orange-500 font-mono text-xs mb-2 bg-black/50 inline-block px-2 py-1 backdrop-blur-sm shadow-sm'>
                         [{project.year}]
@@ -376,7 +372,7 @@ export default function Home() {
                     </div>
 
                     <div
-                      className={`absolute inset-0 bg-black/95 transition-transform duration-500 ease-in-out z-30 p-8 flex flex-col justify-between border-t border-orange-500 translate-y-full md:group-hover:translate-y-0 ${isActive ? 'translate-y-0' : ''}`}
+                      className={`absolute inset-0 bg-black/95 transition-transform duration-500 ease-in-out z-30 p-8 flex flex-col justify-between border-t border-orange-500 md:group-hover:translate-y-0 ${isActive ? 'translate-y-0' : 'translate-y-full'}`}
                     >
                       <div className='flex flex-col h-full'>
                         <div className='flex justify-between items-start mb-4'>
