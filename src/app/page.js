@@ -139,12 +139,12 @@ export default function Home() {
                 <span>
                   {'>'} MOUNTING MODULES: PANDAI // NOTERY // V-LAB... SECURE
                 </span>
-                <span className='text-orange-500'>
+                <span className='text-orange-500 text--xl'>
                   {'>'} ACCESS GRANTED. WELCOME.
                 </span>
               </div>
 
-              <h1 className='text-5xl md:text-6xl lg:text-[6rem] xl:text-[6.5rem] font-black uppercase tracking-tighter leading-[0.85] text-white mb-4'>
+              <h1 className='text-5xl md:text-6xl lg:text-[5.5rem] xl:text-[5.5rem] font-black uppercase tracking-tighter leading-[0.85] text-white mb-4'>
                 <span className='text-transparent bg-clip-text bg-gradient-to-b from-orange-500 to-orange-800'>
                   TUBAGUS FITRAN
                 </span>
@@ -157,11 +157,6 @@ export default function Home() {
               </h2>
 
               <div className='flex flex-col md:flex-row gap-8 items-start md:items-center border-t border-zinc-900 pt-6'>
-                <p className='text-zinc-400 font-mono text-sm max-w-md uppercase leading-relaxed'>
-                  [IDENT] TUBAGUS FITRAN BADRUTTAMAN <br />
-                  [MISSION] {profileData.tagline} <br />
-                  [STATUS] READY FOR DEPLOYMENT
-                </p>
                 <a
                   href='/cv.pdf'
                   download
@@ -275,8 +270,7 @@ export default function Home() {
                       'React',
                       'Tailwind CSS',
                       'Framer Motion',
-                      'Artificial Intelligence',
-                      'WebGL',
+                      'Figma',
                     ].map((skill) => (
                       <span
                         key={skill}

@@ -7,7 +7,7 @@ export const profileData = {
     'Saya memiliki minat besar dalam pengembangan aplikasi web modern dan integrasi sistem. Memiliki pengalaman profesional dalam manajemen tim pengembang dan mentoring edukasi teknologi.',
   email: 'fitranbadrttmamtb@gmail.com',
   socials: {
-    github: '', // Sengaja dikosongkan
+    github: 'https://github.com/fitrantubagus-stack',
     linkedin:
       'https://www.linkedin.com/in/tubagus-tubagus-fitran-badruttamam-05834737b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app',
     instagram: 'https://www.instagram.com/iran_tbgs?igsh=b3RxbTRncHdicnk1',
