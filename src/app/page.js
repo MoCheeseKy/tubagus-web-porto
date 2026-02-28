@@ -30,6 +30,8 @@ import {
 export default function Home() {
   const [activeSection, setActiveSection] = useState('home');
   const [time, setTime] = useState('');
+  const [activeProject, setActiveProject] = useState(null);
+  const [activeCert, setActiveCert] = useState(null);
 
   // Custom HUD Cursor
   const cursorX = useMotionValue(-100);
@@ -180,17 +182,17 @@ export default function Home() {
               <div className='absolute bottom-0 left-0 w-12 h-12 border-b-4 border-l-4 border-orange-500'></div>
               <div className='absolute bottom-0 right-0 w-12 h-12 border-b-4 border-r-4 border-orange-500'></div>
 
-              <div className='w-full h-full bg-zinc-900 relative overflow-hidden flex items-center justify-center grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-[1.02] border border-zinc-800/50'>
+              <div className='w-full h-full bg-zinc-900 relative overflow-hidden flex items-center justify-center grayscale-0 md:grayscale group-hover:grayscale-0 transition-all duration-700 md:group-hover:scale-[1.02] border border-zinc-800/50'>
                 <img
                   src='/profile.jpg'
                   alt='Profile'
-                  className='w-full h-full object-cover opacity-80 mix-blend-luminosity group-hover:mix-blend-normal group-hover:opacity-100 transition-all duration-700'
+                  className='w-full h-full object-cover opacity-100 mix-blend-normal md:opacity-80 md:mix-blend-luminosity group-hover:mix-blend-normal group-hover:opacity-100 transition-all duration-700'
                 />
 
                 <div className='absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_30%,rgba(0,0,0,0.8)_100%)] z-10 pointer-events-none'></div>
-                <div className='absolute inset-0 border border-orange-500/20 opacity-0 group-hover:opacity-100 transition-opacity z-20 mix-blend-overlay pointer-events-none'></div>
+                <div className='absolute inset-0 border border-orange-500/20 opacity-0 md:opacity-0 group-hover:opacity-100 transition-opacity z-20 mix-blend-overlay pointer-events-none'></div>
 
-                <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 border border-orange-500/30 rounded-full flex items-center justify-center z-20 opacity-50 group-hover:opacity-0 transition-opacity pointer-events-none'>
+                <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 border border-orange-500/30 rounded-full flex-col items-center justify-center z-20 opacity-0 md:opacity-50 group-hover:opacity-0 transition-opacity pointer-events-none hidden md:flex'>
                   <div className='w-1 h-1 bg-orange-500 rounded-full'></div>
                 </div>
 
@@ -331,70 +333,97 @@ export default function Home() {
             </div>
 
             <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
-              {projects.map((project, idx) => (
-                <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: idx * 0.1 }}
-                  className='group relative border border-zinc-800 bg-black aspect-[4/3] overflow-hidden cursor-none'
-                >
-                  <div className='absolute inset-0 bg-orange-500/20 opacity-0 group-hover:opacity-100 transition-opacity z-20 mix-blend-color-dodge pointer-events-none'></div>
+              {projects.map((project, idx) => {
+                const isActive = activeProject === idx;
+                return (
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: idx * 0.1 }}
+                    onClick={() => setActiveProject(isActive ? null : idx)}
+                    className='group relative border border-zinc-800 bg-black aspect-[4/3] overflow-hidden cursor-pointer md:cursor-none'
+                  >
+                    <div
+                      className={`absolute inset-0 bg-orange-500/20 transition-opacity z-20 mix-blend-color-dodge pointer-events-none ${isActive ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}
+                    ></div>
 
-                  <div className='absolute inset-0 bg-zinc-900 flex items-center justify-center z-0'>
-                    <img
-                      src={project.image}
-                      alt={project.title}
-                      className='w-full h-full object-cover opacity-30 grayscale group-hover:grayscale-0 group-hover:opacity-10 transition-all duration-700'
-                    />
-                    <div className='absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10 group-hover:opacity-0 transition-opacity duration-500'></div>
-                  </div>
+                    <div className='absolute inset-0 bg-zinc-900 flex items-center justify-center z-0'>
+                      <img
+                        src={project.image}
+                        alt={project.title}
+                        className={`w-full h-full object-cover transition-all duration-700 ${isActive ? 'grayscale-0 opacity-10' : 'opacity-30 grayscale group-hover:grayscale-0 group-hover:opacity-10'}`}
+                      />
+                      <div
+                        className={`absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10 transition-opacity duration-500 ${isActive ? 'opacity-0' : 'group-hover:opacity-0'}`}
+                      ></div>
+                    </div>
 
-                  <div className='absolute bottom-8 left-8 z-20 group-hover:opacity-0 transition-opacity duration-500'>
-                    <p className='text-orange-500 font-mono text-xs mb-2 bg-black/50 inline-block px-2 py-1 backdrop-blur-sm'>
-                      [{project.year}]
-                    </p>
-                    <h3 className='text-3xl font-black text-white uppercase tracking-tighter'>
-                      {project.title}
-                    </h3>
-                  </div>
-
-                  <div className='absolute inset-0 bg-black/95 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-in-out z-30 p-8 flex flex-col justify-between border-t border-orange-500'>
-                    <div className='flex flex-col h-full'>
-                      <div className='flex justify-between items-start mb-4'>
-                        <div className='flex flex-wrap gap-2'>
-                          <span className='text-orange-500 font-mono text-[10px] border border-orange-500/30 px-2 py-1'>
-                            {project.tech}
-                          </span>
-                          <span className='text-zinc-400 font-mono text-[10px] border border-zinc-700 bg-zinc-900 px-2 py-1'>
-                            {project.role}
-                          </span>
-                        </div>
-                        <ArrowUpRight
-                          size={24}
-                          className='text-orange-500 shrink-0'
-                        />
-                      </div>
-
-                      <h3 className='text-2xl font-black text-white uppercase tracking-tighter mb-4'>
+                    <div
+                      className={`absolute bottom-8 left-8 z-20 transition-opacity duration-500 ${isActive ? 'opacity-0 pointer-events-none' : 'group-hover:opacity-0'}`}
+                    >
+                      <p className='text-orange-500 font-mono text-xs mb-2 bg-black/50 inline-block px-2 py-1 backdrop-blur-sm shadow-sm'>
+                        [{project.year}]
+                      </p>
+                      <h3 className='text-3xl font-black text-white uppercase tracking-tighter drop-shadow-md'>
                         {project.title}
                       </h3>
+                    </div>
 
-                      <div className='overflow-y-auto pr-2 custom-scrollbar flex-1 mb-4'>
-                        <p className='text-zinc-400 font-mono text-xs md:text-sm leading-relaxed'>
-                          {project.description}
-                        </p>
+                    <div
+                      className={`absolute inset-0 bg-black/95 transition-transform duration-500 ease-in-out z-30 p-8 flex flex-col justify-between border-t border-orange-500 ${isActive ? 'translate-y-0' : 'translate-y-full group-hover:translate-y-0'}`}
+                    >
+                      <div className='flex flex-col h-full'>
+                        <div className='flex justify-between items-start mb-4'>
+                          <div className='flex flex-wrap gap-2'>
+                            <span className='text-orange-500 font-mono text-[10px] border border-orange-500/30 px-2 py-1'>
+                              {project.tech}
+                            </span>
+                            <span className='text-zinc-400 font-mono text-[10px] border border-zinc-700 bg-zinc-900 px-2 py-1'>
+                              {project.role}
+                            </span>
+                          </div>
+                          <a
+                            href={project.url || '#'}
+                            onClick={(e) => e.stopPropagation()}
+                            target='_blank'
+                            rel='noopener noreferrer'
+                            className='cursor-pointer md:cursor-none hover:scale-110 transition-transform'
+                          >
+                            <ArrowUpRight
+                              size={24}
+                              className='text-orange-500 shrink-0'
+                            />
+                          </a>
+                        </div>
+
+                        <h3 className='text-2xl font-black text-white uppercase tracking-tighter mb-4'>
+                          {project.title}
+                        </h3>
+
+                        <div className='overflow-y-auto pr-2 custom-scrollbar flex-1 mb-4 pointer-events-auto'>
+                          <p className='text-zinc-400 font-mono text-xs md:text-sm leading-relaxed'>
+                            {project.description}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className='font-mono text-[10px] text-zinc-600 uppercase flex justify-between pt-4 border-t border-zinc-900 shrink-0'>
+                        <span>STATUS: DEPLOYED</span>
+                        <span>ID: 00{idx + 1}</span>
                       </div>
                     </div>
 
-                    <div className='font-mono text-[10px] text-zinc-600 uppercase flex justify-between pt-4 border-t border-zinc-900 shrink-0'>
-                      <span>STATUS: DEPLOYED</span>
-                      <span>ID: 00{idx + 1}</span>
+                    {/* Tap Hint for Mobile */}
+                    <div
+                      className={`absolute top-4 right-4 z-40 md:hidden bg-orange-500 text-black px-2 py-1 text-[8px] font-bold tracking-widest uppercase transition-opacity pointer-events-none ${isActive ? 'opacity-0' : 'opacity-100'}`}
+                    >
+                      TAP TO VIEW
                     </div>
-                  </div>
-                </motion.div>
-              ))}
+                  </motion.div>
+                );
+              })}
             </div>
           </div>
         </section>
@@ -416,38 +445,57 @@ export default function Home() {
             </div>
 
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6'>
-              {certifications.map((cert, idx) => (
-                <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: idx * 0.1 }}
-                  className='group relative border border-zinc-800 bg-black aspect-[4/3] overflow-hidden cursor-none'
-                >
-                  <div className='absolute top-4 left-4 z-20 opacity-0 group-hover:opacity-100 transition-opacity bg-black/80 backdrop-blur-md px-3 py-1 border border-orange-500/50 flex items-center gap-2'>
-                    <Award size={14} className='text-orange-500' />
-                    <span className='text-orange-500 font-mono text-[10px] uppercase'>
-                      VERIFIED
-                    </span>
-                  </div>
+              {certifications.map((cert, idx) => {
+                const isActive = activeCert === idx;
+                return (
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: idx * 0.1 }}
+                    onClick={() => setActiveCert(isActive ? null : idx)}
+                    className='group relative border border-zinc-800 bg-black aspect-[4/3] overflow-hidden cursor-pointer md:cursor-none'
+                  >
+                    <div
+                      className={`absolute top-4 left-4 z-20 transition-opacity bg-black/80 backdrop-blur-md px-3 py-1 border border-orange-500/50 flex items-center gap-2 ${isActive ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}
+                    >
+                      <Award size={14} className='text-orange-500' />
+                      <span className='text-orange-500 font-mono text-[10px] uppercase'>
+                        VERIFIED
+                      </span>
+                    </div>
 
-                  <img
-                    src={cert.image}
-                    alt={cert.title}
-                    className='w-full h-full object-cover opacity-60 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700 group-hover:scale-105'
-                  />
+                    <img
+                      src={cert.image}
+                      alt={cert.title}
+                      className={`w-full h-full object-cover transition-all duration-700 ${isActive ? 'opacity-100 grayscale-0 scale-105' : 'opacity-60 grayscale group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105'}`}
+                    />
 
-                  <div className='absolute inset-0 bg-[linear-gradient(transparent_0%,rgba(249,115,22,0.1)_50%,transparent_100%)] bg-[length:100%_4px] opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none'></div>
+                    <div
+                      className={`absolute inset-0 bg-[linear-gradient(transparent_0%,rgba(249,115,22,0.1)_50%,transparent_100%)] bg-[length:100%_4px] transition-opacity pointer-events-none ${isActive ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}
+                    ></div>
 
-                  {/* PANEL JUDUL SERTIFIKAT (MUNCUL SAAT HOVER) */}
-                  <div className='absolute inset-x-0 bottom-0 bg-black/95 border-t border-orange-500 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-in-out z-30'>
-                    <p className='text-orange-500 font-mono text-xs uppercase text-center leading-relaxed'>
-                      {cert.title}
-                    </p>
-                  </div>
-                </motion.div>
-              ))}
+                    {/* PANEL JUDUL SERTIFIKAT (MUNCUL SAAT HOVER) */}
+                    <div
+                      className={`absolute inset-x-0 bottom-0 bg-black/95 border-t border-orange-500 p-4 transition-transform duration-500 ease-in-out z-30 ${isActive ? 'translate-y-0' : 'translate-y-full group-hover:translate-y-0'}`}
+                    >
+                      <p className='text-orange-500 font-mono text-xs uppercase text-center leading-relaxed'>
+                        {cert.title}
+                      </p>
+                    </div>
+
+                    {/* Tap Hint */}
+                    <div
+                      className={`absolute inset-0 flex items-center justify-center z-40 md:hidden transition-opacity pointer-events-none ${isActive ? 'opacity-0' : 'opacity-100'}`}
+                    >
+                      <span className='bg-black/70 text-orange-500 px-3 py-1.5 border border-orange-500/50 text-[10px] uppercase tracking-widest font-mono font-bold backdrop-blur-sm shadow-lg'>
+                        TAP TO VIEW
+                      </span>
+                    </div>
+                  </motion.div>
+                );
+              })}
             </div>
           </div>
         </section>
