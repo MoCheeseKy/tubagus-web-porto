@@ -137,9 +137,7 @@ export default function Home() {
             >
               <div className='text-[10px] font-mono text-zinc-600 mb-6 flex flex-col gap-1 uppercase'>
                 <span>{'>'} INITIALIZING KERNEL... OK</span>
-                <span>
-                  {'>'} MOUNTING MODULES: PANDAI // NOTERY // V-LAB... SECURE
-                </span>
+                <span>{'>'} MOUNTING MODULES....</span>
                 <span className='text-orange-500 text--xl'>
                   {'>'} ACCESS GRANTED. WELCOME.
                 </span>
