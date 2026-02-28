@@ -150,7 +150,7 @@ export default function Home() {
                   TUBAGUS FITRAN
                 </span>
                 <br />
-                BADRUTTAMAN.
+                BADRUTTAMAM.
               </h1>
 
               <h2 className='text-xl md:text-3xl font-mono text-zinc-300 uppercase tracking-widest mb-8 border-l-4 border-orange-500 pl-4'>
