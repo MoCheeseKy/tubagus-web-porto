@@ -1,6 +1,6 @@
 export const profileData = {
   name: 'Tubagus',
-  fullName: 'Tubagus Fitran Badruttaman',
+  fullName: 'Tubagus Fitran Badruttamam',
   role: 'Software Engineer',
   tagline: 'Membangun solusi digital yang cerdas dan berdampak.',
   about:
