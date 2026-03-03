@@ -8,9 +8,8 @@ export const profileData = {
   email: 'fitranbadrttmamtb@gmail.com',
   socials: {
     github: 'https://github.com/fitrantubagus-stack',
-    linkedin:
-      'https://www.linkedin.com/in/tubagus-tubagus-fitran-badruttamam-05834737b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app',
-    instagram: 'https://www.instagram.com/iran_tbgs?igsh=b3RxbTRncHdicnk1',
+    linkedin: 'https://www.linkedin.com/in/tubagus-tubagus-fitran-badruttamam',
+    instagram: 'https://www.instagram.com/iran_tbgs',
   },
 };
 

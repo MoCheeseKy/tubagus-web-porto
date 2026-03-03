@@ -181,7 +181,7 @@ export default function Home() {
 
               <div className='w-full h-full bg-zinc-900 relative overflow-hidden flex items-center justify-center grayscale-0 md:grayscale group-hover:grayscale-0 transition-all duration-700 md:group-hover:scale-[1.02] border border-zinc-800/50'>
                 <img
-                  src='/profile.jpg'
+                  src='/profile.jpeg'
                   alt='Profile'
                   className='w-full h-full object-cover opacity-100 mix-blend-normal md:opacity-80 md:mix-blend-luminosity group-hover:mix-blend-normal group-hover:opacity-100 transition-all duration-700'
                 />
